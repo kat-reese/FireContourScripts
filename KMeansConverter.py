@@ -94,7 +94,7 @@ class KMeansConverter:
 
 
 def main():
-   print("Notice: You can run all processes at once using Main.py. If you run scripts individually please note that this script is intended to run after CompressImage.py. If it is executed after a different script it will not work.")
+   print("Notice: Please note that this script is intended to run after CompressImage.py. If it is executed after a different script it will not work.")
    km = KMeansConverter()
    if len(sys.argv) < 2:
       print("_________________________________\n")
@@ -145,9 +145,9 @@ def main():
             print("Not Saving")
             km.apply_KMeans(image_path, sys.argv[3], sys.argv[4], sys.argv[5])
    elif sys.argv[1].lower() == "kmeans" and len(sys.argv) != 4:
-      print("To apply kmeans to images please enter: kmeans image_directory_to_apply save_directory use_max_accumulate(t/n) save(y/n)")
+      print("To apply kmeans to images please enter: kmeans [image directory to apply] [save directory] [use max accumulate(y/n)] [save(y/n)]")
    else:
-      print("To apply kmeans to images please enter: kmeans image_directory_to_apply save_directory use_max_accumulate(t/n) save(y/n)")
+      print("To apply kmeans to images please enter: kmeans [image directory to apply] [save directory] [use max accumulate(y/n)] [save(y/n)]")
 
 
 if __name__ == "__main__":

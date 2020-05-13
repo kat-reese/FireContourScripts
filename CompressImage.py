@@ -281,7 +281,7 @@ class CompressImage:
    ## size.                                         ##
    ###################################################
    
-   def compress_image(self, image_path, save_directory, save=True):
+   def compress_image(self, image_path, save_directory, save=True, image_reduction):
       if not os.path.exists(save_directory):
          os.makedirs(save_directory)
       print("Compressing image ", self.IND)
@@ -289,10 +289,11 @@ class CompressImage:
       meta = ""
       name = self.get_file_name(image_path)
       band = []
+      image_reduction = float(image_reduction)
       if not os.path.exists(save_directory+"/"+name):
          dst_crs = rst.crs.CRS.from_epsg(4326) # Coordinate system Hu Tzu Shan 1950
-         dst_width = self.max_width
-         dst_height = self.max_height
+         dst_width = self.max_width * image_reduction
+         dst_height = self.max_height * image_reduction
 
          xres = (self.maxRight - self.minLeft) / dst_width
          yres = (self.maxTop - self.minBottom) / dst_height
@@ -315,7 +316,7 @@ class CompressImage:
 
 
 def main():
-   print("Notice: You can run all processes at once using Main.py. If you run scripts individually please note that this script is intended to run first. If it is executed after a different script it will not work.")
+   print("Notice: Please note that this script is intended to run first. If it is executed after a different script it will not work.")
    ci = CompressImage()
    if(len(sys.argv) < 2):
       print("_________________________________\n")
@@ -394,10 +395,10 @@ def main():
             for image_path in ci.image_locations(path="IntRegImgs"):
                ci.compress_image(image_path, sys.argv[3])
 
-      elif sys.argv[1].lower() == "compress" and len(sys.argv) != 4:
-         print("To compress images please enter: compress [directory to compress] [save directory] [band number]\n")
+      elif sys.argv[1].lower() == "compress" and len(sys.argv) != 5:
+         print("To compress images please enter: compress [directory to compress] [save directory] [band number] [reduction size (float)]\n")
       elif(len(sys.argv) > 2):
-         print("To compress images please enter: compress [directory to compress] [save directory] [band number]\n")
+         print("To compress images please enter: compress [directory to compress] [save directory] [band number] [reduction size (float)]\n")
 
 if __name__ == "__main__":
    main()
